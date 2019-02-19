@@ -124,7 +124,7 @@ contract('EUSD', (accounts) => {
     })
   })
 
-  describe('mint', () => {
+  describe.only('mint', () => {
     it('mints new tokens and increases supply', async () => {
       await token.methods.mint(TOKEN_PARAMS.owner, 1).send({ from: OWNER })
       assert.equal(
@@ -142,6 +142,31 @@ contract('EUSD', (accounts) => {
         TOKEN_PARAMS.totalSupply + 2
       )
       assert.equal(await token.methods.balanceOf(ACCT1).call(), 1)
+    })
+
+    it('emits both Transfer events', async () => {
+      const receipt = await token.methods.mint(
+        TOKEN_PARAMS.owner,
+        1,
+      ).send({ from: OWNER })
+      sassert.event(receipt, 'Transfer', 2)
+    })
+
+    it('throws if the account address is not valid', async () => {
+      try {
+        await token.methods.mint(INVALID_ADDR, 1).send({ from: OWNER })
+      } catch (e) {
+        sassert.revert(e)
+      }
+    })
+
+    it('throws if trying to mint from a non-owner address', async () => {
+      assert.notEqual(await token.methods.owner().call(), ACCT1)
+      try {
+        await token.methods.mint(TOKEN_PARAMS.owner, 1).send({ from: ACCT1 })
+      } catch (e) {
+        sassert.revert(e)
+      }
     })
   })
 
