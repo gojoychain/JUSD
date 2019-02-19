@@ -13,7 +13,7 @@ contract('EUSD', (accounts) => {
     name: 'TestToken',
     symbol: 'TTT',
     decimals: 8,
-    totalSupply: 10000000000,
+    totalSupply: 1000000,
     owner: OWNER,
   }
   const timeMachine = new TimeMachine(web3)
@@ -124,7 +124,7 @@ contract('EUSD', (accounts) => {
     })
   })
 
-  describe.only('mint', () => {
+  describe('mint', () => {
     it('mints new tokens and increases supply', async () => {
       await token.methods.mint(TOKEN_PARAMS.owner, 1).send({ from: OWNER })
       assert.equal(
@@ -171,6 +171,41 @@ contract('EUSD', (accounts) => {
   })
 
   describe('burn', () => {
+    it('burns existing tokens and decreases supply', async () => {
+      await token.methods.burn(TOKEN_PARAMS.owner, 1).send({ from: OWNER })
+      assert.equal(
+        await token.methods.totalSupply().call(),
+        TOKEN_PARAMS.totalSupply - 1
+      )
+      assert.equal(
+        await token.methods.balanceOf(TOKEN_PARAMS.owner).call(),
+        TOKEN_PARAMS.totalSupply - 1
+      )
+    })
 
+    it('emits both Transfer events', async () => {
+      const receipt = await token.methods.burn(
+        TOKEN_PARAMS.owner,
+        1,
+      ).send({ from: OWNER })
+      sassert.event(receipt, 'Transfer', 2)
+    })
+
+    it('throws if the account address is not valid', async () => {
+      try {
+        await token.methods.burn(INVALID_ADDR, 1).send({ from: OWNER })
+      } catch (e) {
+        sassert.revert(e)
+      }
+    })
+
+    it('throws if trying to burn from a non-owner address', async () => {
+      assert.notEqual(await token.methods.owner().call(), ACCT1)
+      try {
+        await token.methods.burn(TOKEN_PARAMS.owner, 1).send({ from: ACCT1 })
+      } catch (e) {
+        sassert.revert(e)
+      }
+    })
   })
 })
