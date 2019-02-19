@@ -1,8 +1,8 @@
 const { assert } = require('chai')
+const sassert = require('sol-assert')
 
 const getConstants = require('../constants')
 const TimeMachine = require('../util/time-machine')
-const sassert = require('../util/sol-assert')
 const GRC223Mock = require('../data/grc223-mock')
 const GRC223ReceiverMock = require('../data/grc223-receiver-mock')
 const NonReceiverMock = require('../data/non-receiver-mock')
@@ -158,14 +158,14 @@ contract('GRC223', (accounts) => {
       assert.isTrue(await receiver.methods.tokenFallbackExec().call())
     })
 
-    it.only('should emit both Transfer events', async () => {
+    it('should emit both Transfer events', async () => {
       const transferAmt = 1234567
       const receipt = await token.methods['transfer(address,uint256,bytes)'](
         receiver._address,
         transferAmt,
         [0x0],
       ).send({ from: OWNER })
-      sassert.event(receipt, 'Transfer', 2)
+      sassert.event(receipt, 'Transfer')
     })
 
     it('throws when sending to a non-GRC223 contract that didnt implement the tokenFallback', async () => {
@@ -265,8 +265,7 @@ contract('GRC223', (accounts) => {
         ACCT1,
         1,
       ).send({ from: OWNER })
-      sassert.event(receipt, 'Transfer')
-      sassert.event(receipt, 'Transfer223')
+      sassert.event(receipt, 'Transfer', 2)
     })
 
     it('should throw if the to address is not valid', async () => {
