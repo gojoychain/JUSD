@@ -168,6 +168,14 @@ contract('EUSD', (accounts) => {
         sassert.revert(e)
       }
     })
+
+    it('throws if trying to mint 0', async () => {
+      try {
+        await token.methods.mint(TOKEN_PARAMS.owner, 0).send({ from: OWNER })
+      } catch (e) {
+        sassert.revert(e)
+      }
+    })
   })
 
   describe('burn', () => {
@@ -203,6 +211,14 @@ contract('EUSD', (accounts) => {
       assert.notEqual(await token.methods.owner().call(), ACCT1)
       try {
         await token.methods.burn(TOKEN_PARAMS.owner, 1).send({ from: ACCT1 })
+      } catch (e) {
+        sassert.revert(e)
+      }
+    })
+
+    it('throws if trying to burn 0', async () => {
+      try {
+        await token.methods.burn(TOKEN_PARAMS.owner, 0).send({ from: OWNER })
       } catch (e) {
         sassert.revert(e)
       }

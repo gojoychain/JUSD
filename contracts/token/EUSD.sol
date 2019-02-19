@@ -57,6 +57,8 @@ contract EUSD is GRC223, Ownable {
         validAddress(account)
         returns (bool success)
     {
+        require(value > 0, "value must be greater than 0.");
+
         _totalSupply = _totalSupply.add(value);
         _balances[account] = _balances[account].add(value);
 
@@ -80,6 +82,8 @@ contract EUSD is GRC223, Ownable {
         validAddress(account)
         returns (bool success)
     {
+        require(value > 0, "value must be greater than 0.");
+
         _totalSupply = _totalSupply.sub(value);
         _balances[account] = _balances[account].sub(value);
         
