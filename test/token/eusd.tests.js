@@ -1,7 +1,7 @@
 const { assert } = require('chai')
 const sassert = require('sol-assert')
+const TimeMachine = require('sol-time-machine')
 
-const TimeMachine = require('../util/time-machine')
 const getConstants = require('../constants')
 const EUSD = require('../data/eusd')
 
@@ -21,7 +21,7 @@ contract('EUSD', (accounts) => {
   let token
 
   beforeEach(async () => {
-    await timeMachine.snapshot
+    await timeMachine.snapshot()
 
     token = new web3.eth.Contract(EUSD.abi)
     token = await token.deploy({
@@ -37,7 +37,7 @@ contract('EUSD', (accounts) => {
   })
   
   afterEach(async () => {
-    await timeMachine.revert
+    await timeMachine.revert()
   })
 
   describe('constructor', async () => {

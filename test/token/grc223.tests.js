@@ -1,8 +1,8 @@
 const { assert } = require('chai')
 const sassert = require('sol-assert')
+const TimeMachine = require('sol-time-machine')
 
 const getConstants = require('../constants')
-const TimeMachine = require('../util/time-machine')
 const GRC223Mock = require('../data/grc223-mock')
 const GRC223ReceiverMock = require('../data/grc223-receiver-mock')
 const NonReceiverMock = require('../data/non-receiver-mock')
@@ -10,7 +10,6 @@ const NonReceiverMock = require('../data/non-receiver-mock')
 const web3 = global.web3
 
 contract('GRC223', (accounts) => {
-  const timeMachine = new TimeMachine(web3)
   const { OWNER, ACCT1, ACCT2, ACCT3, INVALID_ADDR } = getConstants(accounts)
   const TOKEN_PARAMS = {
     name: 'TestToken',
@@ -19,13 +18,14 @@ contract('GRC223', (accounts) => {
     initialAccount: OWNER,
     initialBalance: 10000000,
   }
+  const timeMachine = new TimeMachine(web3)
   
   let token
   let receiver
   let nonReceiver
 
   beforeEach(async () => {
-    await timeMachine.snapshot
+    await timeMachine.snapshot()
 
     token = new web3.eth.Contract(GRC223Mock.abi)
     token = await token.deploy({
@@ -53,7 +53,7 @@ contract('GRC223', (accounts) => {
   })
   
   afterEach(async () => {
-    await timeMachine.revert
+    await timeMachine.revert()
   })
 
   describe('constructor', async () => {
