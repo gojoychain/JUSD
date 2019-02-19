@@ -15,4 +15,8 @@ module.exports = Object.freeze({
   event(txReceipt, eventName) {
     assert.isDefined(txReceipt.events[eventName])
   },
+  event(txReceipt, eventName, numOfEvents) {
+    assert.isDefined(txReceipt.events[eventName])
+    assert.equal(txReceipt.events[eventName].length, numOfEvents)
+  },
 })

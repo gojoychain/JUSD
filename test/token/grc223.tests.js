@@ -158,15 +158,14 @@ contract('GRC223', (accounts) => {
       assert.isTrue(await receiver.methods.tokenFallbackExec().call())
     })
 
-    it('should emit both Transfer events', async () => {
+    it.only('should emit both Transfer events', async () => {
       const transferAmt = 1234567
       const receipt = await token.methods['transfer(address,uint256,bytes)'](
         receiver._address,
         transferAmt,
         [0x0],
       ).send({ from: OWNER })
-      sassert.event(receipt, 'Transfer')
-      sassert.event(receipt, 'Transfer223')
+      sassert.event(receipt, 'Transfer', 2)
     })
 
     it('throws when sending to a non-GRC223 contract that didnt implement the tokenFallback', async () => {

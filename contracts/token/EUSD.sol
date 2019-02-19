@@ -39,7 +39,7 @@ contract EUSD is GRC223, Ownable {
 
         bytes memory empty;
         emit Transfer(address(0), owner, totalSupply);
-        emit Transfer223(address(0), owner, totalSupply, empty);
+        emit Transfer(address(0), owner, totalSupply, empty);
     }
 
     /**
@@ -62,7 +62,7 @@ contract EUSD is GRC223, Ownable {
 
         bytes memory empty;
         emit Transfer(address(0), account, value);
-        emit Transfer223(address(0), account, value, empty);
+        emit Transfer(address(0), account, value, empty);
 
         return true;
     }
@@ -85,7 +85,7 @@ contract EUSD is GRC223, Ownable {
         
         bytes memory empty;
         emit Transfer(account, address(0), value);
-        emit Transfer223(account, address(0), value, empty);
+        emit Transfer(account, address(0), value, empty);
 
         return true;
     }
