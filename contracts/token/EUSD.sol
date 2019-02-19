@@ -1,6 +1,7 @@
 pragma solidity ^0.5.4;
 
-import "./GRC223.sol"
+import "./GRC223.sol";
+import "../lib/Ownable.sol";
 
 /**
  * @title EUSD stablecoin contract.
@@ -13,14 +14,14 @@ contract EUSD is GRC223, Ownable {
      * @param name Name of the token.
      * @param symbol Symbol of the token.
      * @param decimals Decimals of the token.
-     * @param initialSupply Initial supply of tokens.
+     * @param totalSupply Initial supply of tokens.
      * @param owner Owner of the initial tokens.
      */
     constructor(
         string memory name,
         string memory symbol,
         uint8 decimals,
-        uint256 initialSupply,
+        uint256 totalSupply,
         address owner)
         Ownable(owner)
         public
