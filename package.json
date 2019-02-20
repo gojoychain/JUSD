@@ -1,7 +1,7 @@
 {
-  "name": "eusd",
+  "name": "ghusd",
   "version": "1.0.0",
-  "description": "EUSD stablecoin contracts",
+  "description": "GHUSD stablecoin contracts",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ghuchain/EUSD.git"
+    "url": "git+https://github.com/ghuchain/GHUSD.git"
   },
   "author": "Deric Walintukan <deric@ghuchain.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ghuchain/EUSD/issues"
+    "url": "https://github.com/ghuchain/GHUSD/issues"
   },
-  "homepage": "https://github.com/ghuchain/EUSD#readme",
+  "homepage": "https://github.com/ghuchain/GHUSD#readme",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.0.0",

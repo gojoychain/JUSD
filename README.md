@@ -1,2 +1,2 @@
-# EUSD
-GHU Chain Stable Coin
+# GHUSD
+GHU Chain Stablecoin
