@@ -105,23 +105,6 @@ contract('GHUSD', (accounts) => {
         sassert.revert(e)
       }
     })
-
-    it('throws if totalSupply is not greater than 0', async () => {
-      try {
-        await token.deploy({
-          data: GHUSD.bytecode,
-          arguments: [
-            TOKEN_PARAMS.name, 
-            TOKEN_PARAMS.symbol,
-            TOKEN_PARAMS.decimals,
-            0,
-            TOKEN_PARAMS.owner,
-          ],
-        }).send({ from: OWNER, gas: 4712388 })
-      } catch (e) {
-        sassert.revert(e)
-      }
-    })
   })
 
   describe('mint', () => {

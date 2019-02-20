@@ -29,7 +29,6 @@ contract GHUSD is GRC223, Ownable {
     {
         require(bytes(name).length > 0, "name cannot be empty.");
         require(bytes(symbol).length > 0, "symbol cannot be empty.");
-        require(totalSupply > 0, "totalSupply must be greater than 0.");
 
         _name = name;
         _symbol = symbol;
