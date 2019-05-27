@@ -1,2 +1,2 @@
-# GHUSD
-GHU Chain Stablecoin
+# JUSD
+JUSD Stablecoin

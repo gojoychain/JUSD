@@ -1,14 +1,14 @@
 pragma solidity ^0.5.4;
 
-import "./GRC223.sol";
+import "./JRC223.sol";
 import "../lib/Ownable.sol";
 
 /**
- * @title GHUSD stablecoin contract.
+ * @title JUSD stablecoin contract.
  * @dev Initially mints the supply to the owner of the contract.
  *      Has mint and burn functionality to increase/decrease total supply.
  */
-contract GHUSD is GRC223, Ownable {
+contract JUSD is JRC223, Ownable {
     /**
      * @dev Creates the token and mints the initial token supply to the owner.
      * @param name Name of the token.
