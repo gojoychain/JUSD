@@ -3,11 +3,11 @@ const sassert = require('sol-assert')
 const TimeMachine = require('sol-time-machine')
 
 const getConstants = require('../constants')
-const GHUSD = require('../data/ghusd')
+const JUSD = require('../data/jusd')
 
 const web3 = global.web3
 
-contract('GHUSD', (accounts) => {
+contract('JUSD', (accounts) => {
   const { OWNER, ACCT1, INVALID_ADDR } = getConstants(accounts)
   const TOKEN_PARAMS = {
     name: 'TestToken',
@@ -23,9 +23,9 @@ contract('GHUSD', (accounts) => {
   beforeEach(async () => {
     await timeMachine.snapshot()
 
-    token = new web3.eth.Contract(GHUSD.abi)
+    token = new web3.eth.Contract(JUSD.abi)
     token = await token.deploy({
-      data: GHUSD.bytecode,
+      data: JUSD.bytecode,
       arguments: [
         TOKEN_PARAMS.name,
         TOKEN_PARAMS.symbol, 
@@ -58,7 +58,7 @@ contract('GHUSD', (accounts) => {
     it('throws if owner is not valid', async () => {
       try {
         await token.deploy({
-          data: GHUSD.bytecode,
+          data: JUSD.bytecode,
           arguments: [
             TOKEN_PARAMS.name,
             TOKEN_PARAMS.symbol, 
@@ -75,7 +75,7 @@ contract('GHUSD', (accounts) => {
     it('throws if name is empty', async () => {
       try {
         await token.deploy({
-          data: GHUSD.bytecode,
+          data: JUSD.bytecode,
           arguments: [
             '',
             TOKEN_PARAMS.symbol, 
@@ -92,7 +92,7 @@ contract('GHUSD', (accounts) => {
     it('throws if symbol is empty', async () => {
       try {
         await token.deploy({
-          data: GHUSD.bytecode,
+          data: JUSD.bytecode,
           arguments: [
             TOKEN_PARAMS.name, 
             '',
